@@ -86,11 +86,14 @@ Use the higher-order function getWinnersByYear to do the following:
  */
 
 function getWinnersByYear(arrNew,cb1,cb2,cb3) {
-    const stringArr = [];
-    for (let i = 0 ; i < cb1(arrNew).length ; i++){
-    stringArr.push(`In ${cb2(arrNew,cb1)[i]}, ${cb3(arrNew,cb1)[i]} won the world cup!`);
-    }
-    return stringArr;
+    // const stringArr = [];
+    // for (let i = 0 ; i < cb1(arrNew).length ; i++){
+    // stringArr.push(`In ${cb2(arrNew,cb1)[i]}, ${cb3(arrNew,cb1)[i]} won the world cup!`);
+    // }
+    // return stringArr;
+    const winners = cb3(arrNew,cb1);
+    const years = cb2(arrNew,cb1);
+    return winners.map((item,index) => `In ${years[index]}, ${item} won the world cup!`);
 }
 
 console.log(getWinnersByYear(fifaData,getFinals,getYears,getWinners));
@@ -109,11 +112,14 @@ Use the higher order function `getAverageGoals` to do the following:
  
 */
 
-function getAverageGoals(/* code here */) {
-    /* code here */
+function getAverageGoals(data) {
+    const avgGoals = data.reduce((acc,currentVal) => {
+        return acc + currentVal['Home Team Goals'] + currentVal['Away Team Goals'];
+    },0);
+    return (avgGoals / data.length).toFixed(2);
  }
 
-
+console.log(getAverageGoals(getFinals(fifaData)));
 
 
 /// 🥅 STRETCH 🥅 ///
